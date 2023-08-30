@@ -1,0 +1,33 @@
+// Create mock image URLs
+let imageURL = "https://example.com/anime_image.jpg"
+let smallImageURL = "https://example.com/small_anime_image.jpg"
+let largeImageURL = "https://example.com/large_anime_image.jpg"
+
+// Create a mock ImageModel
+let imageModel = ImageModel(imageURL: imageURL, smallImageURL: smallImageURL, largeImageURL: largeImageURL)
+
+// Create mock Datum
+let mockDatum = Datum(
+    id: 1,
+    malID: 123,
+    url: "https://example.com/anime/123",
+    images: ["default": imageModel], // Store the image in the "default" key
+    // ... other properties ...
+)
+
+// Create a mock AnimesModel with pagination and data
+let mockAnimesModel = AnimesModel(
+    pagination: Pagination(
+        lastVisiblePage: 10,
+        hasNextPage: true,
+        currentPage: 1,
+        items: Items(count: 1, total: 10, perPage: 10)
+    ),
+    data: [mockDatum]
+)
+
+// Print the mock data
+if let jsonData = try? JSONEncoder().encode(mockAnimesModel),
+   let jsonString = String(data: jsonData, encoding: .utf8) {
+    print(jsonString)
+}
